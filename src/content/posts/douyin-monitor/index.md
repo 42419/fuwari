@@ -1,6 +1,6 @@
 ---
 title: 抖音视频更新监控
-published: 2025-02-03
+published: 2026-02-03
 description: 从零开始，完整部署抖音用户视频更新监控系统
 image: "./cover.jpeg"
 tags: [Linux, 抖音, 监控, 自动化]
