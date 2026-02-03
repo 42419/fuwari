@@ -1,90 +1,86 @@
 import type {
-	ExpressiveCodeConfig,
-	LicenseConfig,
-	NavBarConfig,
-	ProfileConfig,
-	SiteConfig,
+  ExpressiveCodeConfig,
+  LicenseConfig,
+  NavBarConfig,
+  ProfileConfig,
+  SiteConfig,
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
-	title: "Fuwari",
-	subtitle: "Demo Site",
-	lang: "en", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
-	themeColor: {
-		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
-		fixed: false, // Hide the theme color picker for visitors
-	},
-	banner: {
-		enable: false,
-		src: "assets/images/demo-banner.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
-		credit: {
-			enable: false, // Display the credit text of the banner image
-			text: "", // Credit text to be displayed
-			url: "", // (Optional) URL link to the original artwork or artist's page
-		},
-	},
-	toc: {
-		enable: true, // Display the table of contents on the right side of the post
-		depth: 2, // Maximum heading depth to show in the table, from 1 to 3
-	},
-	favicon: [
-		// Leave this array empty to use the default favicon
-		// {
-		//   src: '/favicon/icon.png',    // Path of the favicon, relative to the /public directory
-		//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
-		//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
-		// }
-	],
+  title: "YunFei Blog",
+  subtitle: "Coding日记",
+  lang: "zh_CN", // 语言代码，例如 'en'、'zh_CN'、'ja' 等
+  themeColor: {
+    hue: 50, // 主题颜色的默认色相，范围从 0 到 360。例如：红色: 0，青色: 200，青蓝: 250，粉色: 345
+    fixed: false, // 为访客隐藏主题颜色选择器
+  },
+  banner: {
+    enable: false,
+    src: "assets/images/banner.jpeg", // 相对于 /src 目录。如果以 '/' 开头，则相对于 /public 目录
+    position: "center", // 等同于 object-position，仅支持 'top'、'center'、'bottom'。默认为 'center'
+    credit: {
+      enable: false, // 显示横幅图片的署名文本
+      text: "", // 要显示的署名文本
+      url: "", // （可选）指向原作品或艺术家页面的 URL 链接
+    },
+  },
+  toc: {
+    enable: true, // 在文章右侧显示目录
+    depth: 2, // 目录中显示的最大标题深度，从 1 到 3
+  },
+  favicon: [
+    // 将此数组留空以使用默认的网站图标
+    {
+      src: "/favicon/favicon.png", // 网站图标的路径，相对于 /public 目录
+      theme: "light", // （可选）'light' 或 'dark'，仅当您为浅色和深色模式有不同的网站图标时设置
+      sizes: "32x32", // （可选）网站图标的尺寸，仅当您有不同尺寸的网站图标时设置
+    },
+  ],
 };
 
 export const navBarConfig: NavBarConfig = {
-	links: [
-		LinkPreset.Home,
-		LinkPreset.Archive,
-		LinkPreset.About,
-		{
-			name: "GitHub",
-			url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
-		},
-	],
+  links: [
+    LinkPreset.Home,
+    LinkPreset.Archive,
+    LinkPreset.About,
+    // {
+    //   name: "GitHub",
+    //   url: "https://github.com/saicaca/fuwari", // 内部链接不应包含基础路径，因为它会自动添加
+    //   external: true, // 显示外部链接图标，将在新标签页中打开
+    // },
+  ],
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/demo-avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "Lorem Ipsum",
-	bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-	links: [
-		{
-			name: "Twitter",
-			icon: "fa6-brands:twitter", // Visit https://icones.js.org/ for icon codes
-			// You will need to install the corresponding icon set if it's not already included
-			// `pnpm add @iconify-json/<icon-set-name>`
-			url: "https://twitter.com",
-		},
-		{
-			name: "Steam",
-			icon: "fa6-brands:steam",
-			url: "https://store.steampowered.com",
-		},
-		{
-			name: "GitHub",
-			icon: "fa6-brands:github",
-			url: "https://github.com/saicaca/fuwari",
-		},
-	],
+  avatar: "assets/images/avatar.jpg", // 相对于 /src 目录。如果以 '/' 开头，则相对于 /public 目录
+  name: "YunFei",
+  bio: "没心没肺, 快乐加倍.",
+  links: [
+    // 访问 https://icones.js.org/ 查看图标代码
+    // 如果尚未包含相应的图标集，您需要安装它
+    // `pnpm add @iconify-json/<icon-set-name>`
+    {
+      name: "email",
+      icon: "material-symbols:mail-rounded",
+      url: "mailto:yunfeiii@qq.com",
+    },
+    {
+      name: "GitHub",
+      icon: "fa6-brands:github",
+      url: "https://github.com/42419",
+    },
+  ],
 };
 
 export const licenseConfig: LicenseConfig = {
-	enable: true,
-	name: "CC BY-NC-SA 4.0",
-	url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  enable: true,
+  name: "CC BY-NC-SA 4.0",
+  url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
 };
 
 export const expressiveCodeConfig: ExpressiveCodeConfig = {
-	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
-	// Please select a dark theme, as this blog theme currently only supports dark background color
-	theme: "github-dark",
+  // 注意：某些样式（如背景颜色）正在被覆盖，请参阅 astro.config.mjs 文件。
+  // 请选择深色主题，因为此博客主题目前仅支持深色背景颜色
+  theme: "github-dark",
 };
