@@ -8,7 +8,7 @@ import type {
 import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
-  title: "YunFei Blog",
+  title: "YunFei's Blog",
   subtitle: "Coding日记",
   lang: "zh_CN", // 语言代码，例如 'en'、'zh_CN'、'ja' 等
   themeColor: {
