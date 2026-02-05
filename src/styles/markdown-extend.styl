@@ -119,14 +119,19 @@ a.card-github
     color: var(--tw-prose-headings)
     font-size: 1.25rem
     font-weight: 500
+    gap: 0.5rem
 
     .gc-titlebar-left
       display: flex
       flex-flow: row nowrap
       gap: 0.5rem
+      min-width: 0
 
     .gc-repo
       font-weight: bold
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
 
     .gc-owner
       font-weight: 300
@@ -135,10 +140,17 @@ a.card-github
       flex-flow: row nowrap
       gap: 0.5rem
       align-items: center
+      min-width: 0
+
+      .gc-user
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
 
     .gc-avatar
       display: block
       overflow: hidden
+      flex-shrink: 0
       width: 1.5rem
       height: 1.5rem
       margin-top: -0.1rem
