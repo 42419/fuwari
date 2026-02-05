@@ -32,7 +32,7 @@ let heading1Count = 1;
 const maxLevel = siteConfig.toc.depth;
 ---
 {isPostsRoute &&
-<table-of-contents class:list={[className, "group"]}>
+<table-of-contents class:list={[className, "group relative"]}>
     {headings.filter((heading) => heading.depth < minDepth + maxLevel).map((heading) =>
             <a href={`#${heading.slug}`} class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
         hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
@@ -55,7 +55,7 @@ const maxLevel = siteConfig.toc.depth;
                 }]}>{removeTailingHash(heading.text)}</div>
             </a>
     )}
-    <div id="active-indicator" style="opacity: 0" class:list={[{'hidden': headings.length == 0}, "-z-10 absolute bg-[var(--toc-btn-hover)] left-0 right-0 rounded-xl transition-all " +
+    <div class="active-indicator" style="opacity: 0" class:list={[{'hidden': headings.length == 0}, "-z-10 absolute bg-[var(--toc-btn-hover)] left-0 right-0 rounded-xl transition-all " +
         "group-hover:bg-transparent border-2 border-[var(--toc-btn-hover)] group-hover:border-[var(--toc-btn-active)] border-dashed"]}></div>
 </table-of-contents>}
 
@@ -115,10 +115,9 @@ class TableOfContents extends HTMLElement {
         if (min > max) {
             this.activeIndicator?.setAttribute("style", `opacity: 0`);
         } else {
-            let parentOffset = this.tocEl?.getBoundingClientRect().top || 0;
-            let scrollOffset = this.tocEl?.scrollTop || 0;
-            let top = this.tocEntries[min].getBoundingClientRect().top - parentOffset + scrollOffset;
-            let bottom = this.tocEntries[max].getBoundingClientRect().bottom - parentOffset + scrollOffset;
+            let parentOffset = this.getBoundingClientRect().top;
+            let top = this.tocEntries[min].getBoundingClientRect().top - parentOffset;
+            let bottom = this.tocEntries[max].getBoundingClientRect().bottom - parentOffset;
             this.activeIndicator?.setAttribute("style", `top: ${top}px; height: ${bottom - top}px`);
         }
     };
@@ -130,7 +129,7 @@ class TableOfContents extends HTMLElement {
 
         if (this.anchorNavTarget || !this.tocEl) return;
         const activeHeading =
-            document.querySelectorAll<HTMLDivElement>(`#toc .${this.visibleClass}`);
+            this.querySelectorAll<HTMLDivElement>(`.${this.visibleClass}`);
         if (!activeHeading.length) return;
 
         const topmost = activeHeading[0];
@@ -209,24 +208,23 @@ class TableOfContents extends HTMLElement {
             }, { once: true });
         } else {
             console.debug('Animation element not found');
+            // If animation element is not found, maybe init immediately or wait a bit?
+             this.init();
         }
     };
 
     init() {
-        this.tocEl = document.getElementById(
-            "toc-inner-wrapper"
-        );
+        // Find closest scrollable container if possible, or specific one
+        this.tocEl = this.closest('#toc-inner-wrapper');
 
-        if (!this.tocEl) return;
-
-        this.tocEl.addEventListener("click", this.handleAnchorClick, {
+        this.addEventListener("click", this.handleAnchorClick, {
             capture: true,
         });
 
-        this.activeIndicator = document.getElementById("active-indicator");
+        this.activeIndicator = this.querySelector(".active-indicator");
 
         this.tocEntries = Array.from(
-            document.querySelectorAll<HTMLAnchorElement>("#toc a[href^='#']")
+            this.querySelectorAll<HTMLAnchorElement>("a[href^='#']")
         );
 
         if (this.tocEntries.length === 0) return;
@@ -258,7 +256,7 @@ class TableOfContents extends HTMLElement {
             this.observer.unobserve(section)
         );
         this.observer.disconnect();
-        this.tocEl?.removeEventListener("click", this.handleAnchorClick);
+        this.removeEventListener("click", this.handleAnchorClick);
     };
 }
 
