@@ -4,19 +4,20 @@
 import { definePlugin } from "@expressive-code/core";
 
 export function pluginLanguageBadge() {
-	return definePlugin({
-		name: "Language Badge",
-		// @ts-expect-error
-		baseStyles: ({ _cssVar }) => `
+  return definePlugin({
+    name: "Language Badge",
+    // @ts-expect-error
+    baseStyles: ({ _cssVar }) => `
       [data-language]::before {
         position: absolute;
         z-index: 2;
-        right: 0.5rem;
-        top: 0.5rem;
-        padding: 0.1rem 0.5rem;
+        right: 0.75rem;
+        top: 0.75rem;
+        padding: 0.25rem 0.5rem;
         content: attr(data-language);
         font-family: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-size: 0.75rem;
+        line-height: 1;
         font-weight: bold;
         text-transform: uppercase;
         color: oklch(0.75 0.1 var(--hue));
@@ -28,15 +29,22 @@ export function pluginLanguageBadge() {
       }
       .frame:not(.has-title):not(.is-terminal) {
         @media (hover: none) {
+          & [data-language] {
+            position: relative;
+            padding-top: 2rem;
+          }
           & [data-language]::before {
             opacity: 1;
-            margin-right: 3rem;
+            margin-right: 2.5rem;
           }
           & [data-language]:active::before {
             opacity: 0;
           }
         }
         @media (hover: hover) {
+          & [data-language] {
+            position: relative;
+          }
           & [data-language]::before {
             opacity: 1;
           }
@@ -46,5 +54,5 @@ export function pluginLanguageBadge() {
         }
       }
     `,
-	});
+  });
 }

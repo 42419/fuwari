@@ -29,6 +29,9 @@ export default defineConfig({
 	site: "https://www.yunov.top/",
 	base: "/",
 	trailingSlash: "always",
+	server: {
+		host: "0.0.0.0"
+	},
 	integrations: [
 		tailwind({
 			nesting: true,
