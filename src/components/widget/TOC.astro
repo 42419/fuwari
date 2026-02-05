@@ -71,12 +71,16 @@ class TableOfContents extends HTMLElement {
     tocEntries: HTMLAnchorElement[] = [];
     active: boolean[] = [];
     activeIndicator: HTMLElement | null = null;
+    resizeObserver: ResizeObserver | null = null;
 
     constructor() {
         super();
         this.observer = new IntersectionObserver(
             this.markVisibleSection, { threshold: 0 }
         );
+        this.resizeObserver = new ResizeObserver(() => {
+            this.update();
+        });
     };
 
     markVisibleSection = (entries: IntersectionObserverEntry[]) => {
@@ -100,19 +104,26 @@ class TableOfContents extends HTMLElement {
         let min = this.active.length - 1, max = -1;
         while (i >= 0 && !this.active[i]) {
             this.tocEntries[i].classList.remove(this.visibleClass);
+            this.tocEntries[i].classList.add("text-50");
             i--;
         }
         while (i >= 0 && this.active[i]) {
             this.tocEntries[i].classList.add(this.visibleClass);
+            this.tocEntries[i].classList.remove("text-50");
             min = Math.min(min, i);
             max = Math.max(max, i);
             i--;
         }
         while (i >= 0) {
             this.tocEntries[i].classList.remove(this.visibleClass);
+            this.tocEntries[i].classList.add("text-50");
             i--;
         }
-        if (min > max) {
+        
+        // Fix: If the element is not visible (e.g. in a hidden mobile panel), getBoundingClientRect() returns all 0s.
+        // This causes the active indicator to be positioned incorrectly (usually at the top).
+        // So we should hide the indicator if the element is not visible.
+        if (min > max || !this.offsetParent) {
             this.activeIndicator?.setAttribute("style", `opacity: 0`);
         } else {
             let parentOffset = this.getBoundingClientRect().top;
@@ -246,6 +257,8 @@ class TableOfContents extends HTMLElement {
         this.sections.forEach((section) =>
             this.observer.observe(section)
         );
+        
+        this.resizeObserver?.observe(this);
 
         this.fallback();
         this.update();
@@ -256,6 +269,7 @@ class TableOfContents extends HTMLElement {
             this.observer.unobserve(section)
         );
         this.observer.disconnect();
+        this.resizeObserver?.disconnect();
         this.removeEventListener("click", this.handleAnchorClick);
     };
 }

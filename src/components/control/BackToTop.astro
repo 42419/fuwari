@@ -2,13 +2,20 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<!-- There can't be a filter on parent element, or it will break `fixed` -->
+<!-- Desktop Button -->
 <div class="back-to-top-wrapper hidden lg:block">
     <div id="back-to-top-btn" class="back-to-top-btn hide flex items-center rounded-2xl overflow-hidden transition" onclick="backToTop()">
         <button aria-label="Back to Top" class="btn-card h-[3.75rem] w-[3.75rem]">
             <Icon name="material-symbols:keyboard-arrow-up-rounded" class="mx-auto"></Icon>
         </button>
     </div>
+</div>
+
+<!-- Mobile Button -->
+<div id="back-to-top-mobile-btn" class="back-to-top-mobile-btn hide fixed bottom-[8.25rem] right-4 z-50 flex items-center justify-center rounded-2xl overflow-hidden transition shadow-xl border border-black/5 dark:border-white/5 active:scale-95 block lg:hidden" onclick="backToTop()">
+    <button aria-label="Back to Top" class="btn-card h-[3.75rem] w-[3.75rem] flex items-center justify-center">
+        <Icon name="material-symbols:keyboard-arrow-up-rounded" class="text-[1.75rem] text-[var(--primary)]"></Icon>
+    </button>
 </div>
 
 <style lang="stylus">
@@ -31,6 +38,7 @@ import { Icon } from "astro-icon/components";
     cursor: pointer
     transform: translateX(5rem)
     pointer-events: auto
+    z-index: 50
     i
         font-size: 1.75rem
     &.hide
@@ -40,10 +48,47 @@ import { Icon } from "astro-icon/components";
     &:active
       transform: translateX(5rem) scale(0.9)
 
+.back-to-top-mobile-btn
+    cursor: pointer
+    opacity: 1
+    pointer-events: auto
+    transform: translateY(0)
+    &.hide
+        opacity: 0
+        pointer-events: none
+        transform: translateY(20px) scale(0.9)
+
 </style>
 
 <script is:raw is:inline>
 function backToTop() {
     window.scroll({ top: 0, behavior: 'smooth' });
 }
+
+function scrollFn() {
+    let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    const desktopBtn = document.getElementById("back-to-top-btn");
+    const mobileBtn = document.getElementById("back-to-top-mobile-btn");
+    
+    // Desktop Logic
+    if (desktopBtn) {
+        if (scrollTop > 200) {
+            desktopBtn.classList.remove("hide");
+        } else {
+            desktopBtn.classList.add("hide");
+        }
+    }
+
+    // Mobile Logic
+    if (mobileBtn) {
+        if (scrollTop > 200) {
+            mobileBtn.classList.remove("hide");
+        } else {
+            mobileBtn.classList.add("hide");
+        }
+    }
+}
+
+window.addEventListener('scroll', scrollFn);
+window.addEventListener('load', scrollFn);
 </script>
