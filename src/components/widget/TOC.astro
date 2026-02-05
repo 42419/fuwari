@@ -215,7 +215,7 @@ class TableOfContents extends HTMLElement {
 
     init() {
         // Find closest scrollable container if possible, or specific one
-        this.tocEl = this.closest('#toc-inner-wrapper');
+        this.tocEl = this.closest('.toc-scroll-container') || this.closest('#toc-inner-wrapper');
 
         this.addEventListener("click", this.handleAnchorClick, {
             capture: true,
