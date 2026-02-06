@@ -23,7 +23,7 @@ const isPost = Astro.url.pathname.startsWith(url('/posts/'));
         {!isPost && <Profile></Profile>}
     </div>
     <div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4">
-        {siteConfig.toc.enable && isPost && (
+        {siteConfig.toc.enable && isPost && headings && (
             <WidgetLayout name={i18n(I18nKey.toc)} id="sidebar-toc" class="onload-animation hidden lg:block 2xl:hidden" style="animation-delay: 150ms">
                 <div class="h-[20rem] overflow-y-auto overflow-x-hidden hide-scrollbar toc-scroll-container">
                     <TOC headings={headings}></TOC>
