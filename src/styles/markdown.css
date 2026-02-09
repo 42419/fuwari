@@ -44,6 +44,7 @@
   code {
     @apply bg-[var(--inline-code-bg)] text-[var(--inline-code-color)] px-1 py-0.5 rounded-md overflow-hidden;
     word-break: break-all;
+    font-size: 0.875em;
 
     font-family:
       "JetBrains Mono Variable",
@@ -102,7 +103,15 @@
   }
 
   .expressive-code {
-    @apply my-4;
+    @apply my-4 mx-0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    
+    @media (min-width: 768px) {
+      margin-left: -0.5rem;
+      margin-right: -0.5rem;
+    }
+    
     ::selection {
       @apply bg-[var(--codeblock-selection)];
     }
@@ -118,9 +127,11 @@
   blockquote {
     @apply not-italic border-transparent relative;
     font-weight: inherit;
+    padding-left: 1rem;
+    margin-left: 0;
 
     &:before {
-      @apply content-[''] absolute -left-1 block transition bg-[var(--btn-regular-bg)] h-full w-1 rounded-full;
+      @apply content-[''] absolute left-0 block transition bg-[var(--btn-regular-bg)] h-full w-1 rounded-full;
     }
 
     /* Remove the double quotes from default styles */
@@ -134,5 +145,12 @@
     max-width: 100%;
     overflow-x: auto;
     margin: 1em 0;
+  }
+  
+  @media (max-width: 767px) {
+    p, ul, ol, blockquote {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
   }
 }

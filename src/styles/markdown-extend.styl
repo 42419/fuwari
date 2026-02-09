@@ -73,6 +73,8 @@
 
   img
     border-radius: 0.75rem
+    max-width: 100%
+    height: auto
 
   hr
     border-color: var(--line-divider)
@@ -88,12 +90,15 @@ a.card-github
   display: block
   background: var(--license-block-bg)
   position: relative
-  margin: 0.5rem 0
+  margin: 0.5rem -0.5rem
   padding: 1.1rem 1.5rem 1.1rem 1.5rem
   color: var(--tw-prose-body)
   border-radius: var(--radius-large)
   text-decoration-thickness: 0px
   text-decoration-line: none
+  
+  @media (min-width: 768px)
+    margin: 0.5rem 0
 
   &:hover
     background-color: var(--btn-regular-bg-hover)
