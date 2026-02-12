@@ -101,6 +101,10 @@ const bannerOffset =
 
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Umami Analytics -->
+		<script defer src="https://cloud.umami.is/script.js" data-website-id="e1418b9a-4471-4c9f-b7e9-d5991787ecaa"></script>
+		
 		{favicons.map(favicon => (
 			<link rel="icon"
 				  href={favicon.src.startsWith('/') ? url(favicon.src) : favicon.src}
